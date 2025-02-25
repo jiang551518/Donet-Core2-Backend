@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,7 @@ namespace Asp.net_Test1
                         In = ParameterLocation.Header,
                         Type = SecuritySchemeType.ApiKey
                     });
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Asp.net Test1.xml"), true);
             });
 
             var config = new MapperConfiguration(e =>
