@@ -29,7 +29,7 @@ namespace Asp.net_Test1
         }
 
         /// <summary>
-        /// 天气
+        /// 查看天气
         /// </summary>
         /// <param name="city">城市</param>
         /// <returns></returns>

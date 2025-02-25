@@ -17,6 +17,10 @@ namespace Asp.net_Test1
             _testRepository = testRepository;
         }
 
+        /// <summary>
+        /// 测试列表
+        /// </summary>
+        /// <returns></returns>
         public async Task<TestVM> GetList()
         {
             var result = await _testRepository.GetList();
@@ -24,12 +28,23 @@ namespace Asp.net_Test1
             return result;
         }
 
+        /// <summary>
+        /// 查看用户详情
+        /// </summary>
+        /// <param name="usermane"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
         public async Task<User> GetUserDetail(string usermane,string pwd)
         {
             var result = await _testRepository.GetUserDetail(usermane,pwd);
             return result;
         }
 
+        /// <summary>
+        /// 注册用户
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public async Task<bool> Sign(User user)
         {
             user.Id = Guid.NewGuid();
@@ -38,12 +53,25 @@ namespace Asp.net_Test1
             return isSuccess;
         }
 
+        /// <summary>
+        /// 编辑用户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="username"></param>
+        /// <param name="pwd"></param>
+        /// <param name="isEnable"></param>
+        /// <returns></returns>
         public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable)
         {
             var isSuccess = await _testRepository.EditUser(id, username, pwd, isEnable);
             return isSuccess;
         }
 
+        /// <summary>
+        /// 天气
+        /// </summary>
+        /// <param name="city"></param>
+        /// <returns></returns>
         public async Task<WeatherApiResponse<WeatherItem>> GetWeather(string city)
         {
             var result = new WeatherApiResponse<WeatherItem>();
