@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
 using System.Data.SqlClient;
@@ -11,9 +12,12 @@ namespace Asp.net_Test1
     {
         private string conn;
         private MySqlConnection connection;
-        public TestRepository()
+        public IConfiguration _configuration { get; set; }
+
+        public TestRepository(IConfiguration configuration)
         {
-            conn = "Data Source=127.0.0.1;port=3306;user id=root;password=root;Initial Catalog=test;convertzerodatetime=True;AutoEnlist=false;Charset=utf8;sslmode=none;";
+            _configuration = configuration;
+            conn = _configuration["MysqlConnection"];
             connection = new MySqlConnection(conn);
         }
 
