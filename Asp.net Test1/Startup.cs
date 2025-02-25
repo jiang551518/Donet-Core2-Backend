@@ -73,6 +73,13 @@ namespace Asp.net_Test1
                 });
             }
 
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin(); //允许任何源访问
+                builder.AllowAnyHeader(); //允许任何请求头
+                builder.AllowAnyHeader(); //允许任何HTTP方法
+                builder.AllowCredentials(); //允许发送凭证（如cookies）
+            });
 
             app.UseAuthentication();
             app.UseHttpsRedirection();
