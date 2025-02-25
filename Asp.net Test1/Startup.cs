@@ -1,4 +1,8 @@
 ﻿using AutoMapper;
+using Hangfire;
+using Hangfire.Annotations;
+using Hangfire.Dashboard;
+using Hangfire.Redis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,12 +16,14 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeZoneConverter;
 
 namespace Asp.net_Test1
 {
@@ -60,6 +66,17 @@ namespace Asp.net_Test1
             });
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
+
+            services.AddHangfire(x =>
+            {
+                x.UseRedisStorage(Configuration["HangfireConfig:RedisConnectionString"], new RedisStorageOptions
+                {
+                    Prefix = Configuration["HangfireConfig:RedisPrefix"],
+                    Db = Configuration.GetValue<int>("HangfireConfig:RedisDB")
+                });
+            });
+
+            services.AddHangfireServer(x => x.WorkerCount = Configuration.GetValue<int>("HangfireConfig:WorkerCount"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +92,15 @@ namespace Asp.net_Test1
                 });
             }
 
+
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions()
+            {
+                Authorization = new[] { new CustomAuthorizeFilter() }
+            });
+
+            var localTime = TZConvert.GetTimeZoneInfo("Asia/Shanghai");
+            RecurringJob.AddOrUpdate<ITestService>(x => x.GetList(), "*/2 * * * * ", localTime);
+
             app.UseCors(builder =>
             {
                 builder.AllowAnyOrigin(); //允许任何源访问
@@ -86,6 +112,14 @@ namespace Asp.net_Test1
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+
+        public class CustomAuthorizeFilter : IDashboardAuthorizationFilter
+        {
+            public bool Authorize([NotNull] DashboardContext context)
+            {
+                return true;
+            }
         }
     }
 }
