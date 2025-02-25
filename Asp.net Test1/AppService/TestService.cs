@@ -44,11 +44,10 @@ namespace Asp.net_Test1
         /// 查看用户详情
         /// </summary>
         /// <param name="usermane"></param>
-        /// <param name="pwd"></param>
         /// <returns></returns>
-        public async Task<User> GetUserDetail(string usermane,string pwd)
+        public async Task<User> GetUserDetail(string usermane)
         {
-            var result = await _testRepository.GetUserDetail(usermane,pwd);
+            var result = await _testRepository.GetUserDetail(usermane);
             return result;
         }
 

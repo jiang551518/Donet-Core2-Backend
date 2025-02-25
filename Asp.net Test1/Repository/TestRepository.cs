@@ -32,11 +32,11 @@ namespace Asp.net_Test1
 
         }
 
-        public async Task<User> GetUserDetail(string usermane, string pwd)
+        public async Task<User> GetUserDetail(string usermane)
         {
             var result = new User();
 
-            result = await connection.QueryFirstOrDefaultAsync<User>("SELECT * FROM User WHERE username = @username AND pwd = @pwd;", new { username = usermane, pwd = pwd });
+            result = await connection.QueryFirstOrDefaultAsync<User>("SELECT * FROM User WHERE username = @username ;", new { username = usermane });
 
             return result;
         }

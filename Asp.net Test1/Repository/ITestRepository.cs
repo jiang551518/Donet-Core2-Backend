@@ -8,7 +8,7 @@ namespace Asp.net_Test1
     {
         Task<TestVM> GetList();
 
-        Task<User> GetUserDetail(string usermane, string pwd);
+        Task<User> GetUserDetail(string usermane);
 
         Task<bool> Sign(User user);
 

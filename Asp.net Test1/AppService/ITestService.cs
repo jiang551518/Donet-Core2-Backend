@@ -18,9 +18,8 @@ namespace Asp.net_Test1
         /// 获取用户详情
         /// </summary>
         /// <param name="usermane"></param>
-        /// <param name="pwd"></param>
         /// <returns></returns>
-        Task<User> GetUserDetail(string usermane, string pwd);
+        Task<User> GetUserDetail(string usermane);
 
         /// <summary>
         /// 注册

@@ -37,9 +37,11 @@ namespace Asp.net_Test1
         public async Task<LoginVM> Login(string username ,string pwd)
         {
             var result = new LoginVM();
-            var userDetail = await _testService.GetUserDetail(username, pwd);
+            var userDetail = await _testService.GetUserDetail(username);
             if (userDetail != null)
             {
+                if (userDetail.pwd != pwd) { throw new Exception("密码错误!"); };
+                if (userDetail.Enabled == false) { throw new Exception("用户已禁用"); };
                 result = new LoginVM() 
                 {
                     UserName = userDetail.username,
