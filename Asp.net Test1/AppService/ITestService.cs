@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Asp.net_Test1
@@ -10,6 +11,8 @@ namespace Asp.net_Test1
         /// </summary>
         /// <returns></returns>
         Task<TestVM> GetList();
+
+        Task<List<TestExportVM>> GetListExport();
 
         /// <summary>
         /// 获取用户详情

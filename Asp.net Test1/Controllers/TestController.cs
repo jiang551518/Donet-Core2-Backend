@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
+using MiniExcelLibs;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,7 +15,7 @@ namespace Asp.net_Test1
     public class TestController : BaseController
     {
         protected ITestService _testService { get; set; }
-        public TestController(ITestService testService, IConfiguration configuration) : base(configuration)
+        public TestController(ITestService testService, Microsoft.Extensions.Configuration.IConfiguration configuration) : base(configuration)
         {
             _testService = testService;
         }
@@ -26,6 +29,23 @@ namespace Asp.net_Test1
         {
             var result = await _testService.GetList();
             return result;
+        }
+
+        /// <summary>
+        /// 测试列表导出
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetListExport")]
+        public async Task<IActionResult> GetListExport()
+        {
+            var exportData = await _testService.GetListExport();
+            var memoryStream = new MemoryStream();
+            memoryStream.SaveAs(exportData);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            HttpContext.Response.Headers.Clear();
+            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+            HttpContext.Response.Headers.Add("Content-Disposition", $"attachment;filename={DateTime.Now.ToString("yyyyMMddhhmmss")}.xlsx");
+            return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
 
         /// <summary>

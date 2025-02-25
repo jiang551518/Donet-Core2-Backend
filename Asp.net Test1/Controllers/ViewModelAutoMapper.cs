@@ -11,6 +11,8 @@ namespace Asp.net_Test1
         public ViewModelAutoMapper()
         {
             CreateMap<SignVM, User>();
+
+            CreateMap<Test, TestExportVM>();
         }
     }
 }

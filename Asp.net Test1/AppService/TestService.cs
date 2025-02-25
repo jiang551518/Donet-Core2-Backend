@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -12,9 +14,12 @@ namespace Asp.net_Test1
         protected ITestRepository _testRepository;
         public const string GetWeatherUrl = "https://saweather.market.alicloudapi.com/area-to-weather";
         public const string AppCode = "b58acb361f2a4a5aa5c386a3e9d114df";
-        public TestService(ITestRepository testRepository)
+        protected IMapper _mapper { get; set; }
+
+        public TestService(ITestRepository testRepository, IMapper mapper)
         {
             _testRepository = testRepository;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -26,6 +31,13 @@ namespace Asp.net_Test1
             var result = await _testRepository.GetList();
 
             return result;
+        }
+
+        public async Task<List<TestExportVM>> GetListExport()
+        {
+            var list = await _testRepository.GetList();
+            var mapperList = _mapper.Map<List<TestExportVM>>(list.Tests);
+            return mapperList;
         }
 
         /// <summary>
