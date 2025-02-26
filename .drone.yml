@@ -1,0 +1,27 @@
+kind: pipeline
+type: docker
+name: build
+steps:
+- name: build-code
+  image: golang:alpine
+  pull: if-not-exists # always never
+  commands:
+    - go build server.go
+- name: build-image
+  image: plugins/docker
+  settings:
+    repo: 127.0.0.1/go-server/go-server
+    registry: 127.0.0.1
+    use_cache: true
+    username:
+      from_secret: registry_username
+    password:
+      from_secret: registry_password
+    tags: ${DRONE_BUILD_NUMBER}
+    insecure: true
+    mirror: https://yefnfc9c.mirror.aliyuncs.com/
+trigger:
+  branch:
+  - master
+  event:
+  - push
