@@ -99,7 +99,7 @@ namespace Asp.net_Test1
             });
 
             var localTime = TZConvert.GetTimeZoneInfo("Asia/Shanghai");
-            //RecurringJob.AddOrUpdate<ITestService>(x => x.GetList(), "*/2 * * * * ", localTime);
+            RecurringJob.AddOrUpdate<ITestService>(x => x.GetList(), "*/2 * * * * ", localTime);
 
             app.UseCors(builder =>
             {
