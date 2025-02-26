@@ -106,12 +106,10 @@ namespace Asp.net_Test1
         {
             var result = new SmsVM();
 
-            // 设置请求头
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Authorization", token);
             client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-            // 设置请求体内容
             var body = @"{
             ""messages"":[
                 {
@@ -122,13 +120,10 @@ namespace Asp.net_Test1
             ]
         }";
 
-            // 创建 HTTP 内容
             var content = new StringContent(body, Encoding.UTF8, "application/json");
 
-            // 发送 POST 请求
             var response = await client.PostAsync(GetSmsUrl, content);
 
-            // 确保响应成功
             if (response.IsSuccessStatusCode)
             {
                 var ContentText = await response.Content.ReadAsStringAsync();
