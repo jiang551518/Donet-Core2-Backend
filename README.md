@@ -1,1 +1,1 @@
-asp .net core 测试项目，包含了jwt token登录鉴权，redis缓存，mysql数据库基本的查询，新增修改，excel导出，发送短信，查看天气接口，hangfire定时任务，配置了swagger，方便查看接口类型
+asp .net core 测试项目，包含了jwt token登录鉴权，redis缓存，mysql数据库基本的查询，新增修改，excel导出，发送短信，查看天气接口，hangfire定时任务，配置了swagger，方便查看接口类型，解决并发问题
