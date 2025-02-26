@@ -1,16 +1,30 @@
 kind: pipeline
 type: docker
 name: build
+
 steps:
-- name: build-code
-  image: golang:alpine
-  pull: if-not-exists # always never
+- name: restore
+  image: mcr.microsoft.com/dotnet/core/sdk:2.0-alpine
+  pull: if-not-exists
   commands:
-    - go build server.go
+    - dotnet restore Asp.net Test/Asp.net Test1.csproj
+
+- name: build
+  image: mcr.microsoft.com/dotnet/core/sdk:2.0-alpine
+  pull: if-not-exists
+  commands:
+    - dotnet build Asp.net Test/Asp.net Test1.csproj --configuration Release
+
+- name: publish
+  image: mcr.microsoft.com/dotnet/core/sdk:2.0-alpine
+  pull: if-not-exists
+  commands:
+    - dotnet publish Asp.net Test/Asp.net Test1.csproj --configuration Release --output /app
+
 - name: build-image
   image: plugins/docker
   settings:
-    repo: 127.0.0.1/go-server/go-server
+    repo: 127.0.0.1/my-api/my-api
     registry: 127.0.0.1
     use_cache: true
     username:
@@ -20,6 +34,7 @@ steps:
     tags: ${DRONE_BUILD_NUMBER}
     insecure: true
     mirror: https://yefnfc9c.mirror.aliyuncs.com/
+
 trigger:
   branch:
   - master
