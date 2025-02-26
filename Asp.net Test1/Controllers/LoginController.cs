@@ -92,6 +92,32 @@ namespace Asp.net_Test1
         [HttpPost("Sign")]
         public async Task<bool> Sign([FromBody] SignVM vm)
         {
+            var redisClient = new FreeRedis.RedisClient("127.0.0.1:6379");
+            bool isContinue = false;
+            lock (this)
+            {
+                var cacheValue = redisClient.Get("test_" + vm.Username);
+                if (string.IsNullOrWhiteSpace(cacheValue))
+                {
+                    // 如果 Redis 中没有记录，或者记录为空，则可以继续操作
+                    isContinue = true;
+                }
+                else
+                {
+                    var lastExecutionTime = DateTime.Parse(cacheValue);
+                    var currentTime = DateTime.Now;
+
+                    // 计算距离上次执行时间的间隔
+                    var timeSinceLastExecution = currentTime - lastExecutionTime;
+                    // 如果距离上次执行时间超过 7 秒，则可以继续操作 （增加容错）
+                    if (timeSinceLastExecution.TotalSeconds >= 7)
+                    {
+                        isContinue = true;
+                        redisClient.Set("test_" + vm.Username.ToString(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    }
+                }
+            }
+
             var input = _mapper.Map<User>(vm);
             var isSuccess = await _testService.Sign(input);
             return isSuccess;
