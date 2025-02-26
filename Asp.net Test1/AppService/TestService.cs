@@ -13,7 +13,10 @@ namespace Asp.net_Test1
     {
         protected ITestRepository _testRepository;
         public const string GetWeatherUrl = "https://saweather.market.alicloudapi.com/area-to-weather";
+        public const string GetSmsUrl = "https://wgkk6r.api.infobip.com";
         public const string AppCode = "b58acb361f2a4a5aa5c386a3e9d114df";
+        public const string token = "App 88243c54253684ef21008f5db315f7d9-d786b9c2-3d90-477c-a7b8-ad13019f03c4";
+        private static readonly HttpClient client = new HttpClient();
         protected IMapper _mapper { get; set; }
 
         public TestService(ITestRepository testRepository, IMapper mapper)
@@ -95,6 +98,43 @@ namespace Asp.net_Test1
             {
                 var ContentText = await response.Content.ReadAsStringAsync();
                 result = JsonConvert.DeserializeObject<WeatherApiResponse<WeatherItem>>(ContentText);
+            }
+            return result;
+        }
+
+        public async Task<SmsVM> Post()
+        {
+            var result = new SmsVM();
+            // 设置请求地址
+            var url = "https://wgkk6r.api.infobip.com/sms/2/text/advanced";
+
+            // 设置请求头
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Authorization", token);
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            // 设置请求体内容
+            var body = @"{
+            ""messages"":[
+                {
+                    ""destinations"":[{""to"":""447311009093""}],
+                    ""from"":""447491163443"",
+                    ""text"":""Congratulations on sending your first message. Go ahead and check the delivery report in the next step.""
+                }
+            ]
+        }";
+
+            // 创建 HTTP 内容
+            var content = new StringContent(body, Encoding.UTF8, "application/json");
+
+            // 发送 POST 请求
+            var response = await client.PostAsync(url, content);
+
+            // 确保响应成功
+            if (response.IsSuccessStatusCode)
+            {
+                var ContentText = await response.Content.ReadAsStringAsync();
+                result = JsonConvert.DeserializeObject<SmsVM>(ContentText);
             }
             return result;
         }
