@@ -26,21 +26,19 @@ namespace Asp.net_Test1
             _configuration = configuration;
             _mapper = mapper;
         }
-
         /// <summary>
         /// 登录
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="pwd"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet("Login")]
-        public async Task<LoginVM> Login(string username ,string pwd)
+        [HttpPost("Login")]
+        public async Task<LoginVM> Login([FromBody] LoginInputVM input)
         {
             var result = new LoginVM();
-            var userDetail = await _testService.GetUserDetail(username);
+            var userDetail = await _testService.GetUserDetail(input.Username);
             if (userDetail != null)
             {
-                if (userDetail.pwd != pwd) { throw new Exception("密码错误!"); };
+                if (userDetail.pwd != input.Pwd) { throw new Exception("密码错误!"); };
                 if (userDetail.Enabled == false) { throw new Exception("用户已禁用"); };
                 result = new LoginVM() 
                 {
