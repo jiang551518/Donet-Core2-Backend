@@ -61,7 +61,7 @@ namespace Asp.net_Test1
         /// <returns></returns>
         public async Task<bool> Sign(User user)
         {
-            var userDetail = await _testRepository.GetUserDetail(user.username);
+            var userDetail = await _testRepository.GetUserDetail(user.Username);
             if (userDetail != null) { throw new Exception("用户名已存在"); };
 
             user.Id = Guid.NewGuid();
@@ -78,11 +78,11 @@ namespace Asp.net_Test1
         /// <param name="pwd"></param>
         /// <param name="isEnable"></param>
         /// <returns></returns>
-        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable)
+        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType)
         {
             var userDetail = await _testRepository.GetUserDetail(username);
             if (userDetail != null) { throw new Exception("用户名已存在"); };
-            var isSuccess = await _testRepository.EditUser(id, username, pwd, isEnable);
+            var isSuccess = await _testRepository.EditUser(id, username, pwd, isEnable, roleType);
             return isSuccess;
         }
 

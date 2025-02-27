@@ -36,7 +36,7 @@ namespace Asp.net_Test1
         /// <param name="pwd"></param>
         /// <param name="isEnable"></param>
         /// <returns></returns>
-        Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable);
+        Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType);
 
         /// <summary>
         /// 天气

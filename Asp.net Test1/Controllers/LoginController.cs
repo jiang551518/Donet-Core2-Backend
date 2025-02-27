@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -26,6 +27,7 @@ namespace Asp.net_Test1
             _configuration = configuration;
             _mapper = mapper;
         }
+
         /// <summary>
         /// 登录
         /// </summary>
@@ -38,14 +40,16 @@ namespace Asp.net_Test1
             var userDetail = await _testService.GetUserDetail(input.Username);
             if (userDetail != null)
             {
-                if (userDetail.pwd != input.Pwd) { throw new Exception("密码错误!"); };
+                if (userDetail.Pwd != input.Pwd) { throw new Exception("密码错误!"); };
                 if (userDetail.Enabled == false) { throw new Exception("用户已禁用"); };
                 result = new LoginVM() 
                 {
-                    UserName = userDetail.username,
+                    Username = userDetail.Username,
                     Id = userDetail.Id ,
-                    Enable = userDetail.Enabled
-                };
+                    Enabled = userDetail.Enabled,
+                    Creationtime = userDetail.Creationtime,
+                    RoleType = GetEnumDescription(userDetail.RoleType)
+            };
                 result.JwtToken = await CreateJwtAndSaveCache(result);
             }
             else
@@ -54,6 +58,8 @@ namespace Asp.net_Test1
             }
             return result;
         }
+
+        
 
         #region Jwt Token
         private async Task<string> CreateJwtAndSaveCache(LoginVM vm)
@@ -97,6 +103,19 @@ namespace Asp.net_Test1
             return isSuccess;
         }
 
-        
+        private string GetEnumDescription(RoleType roleType)
+        {
+            if (roleType == null)
+            {
+                return string.Empty;
+            }
+            Type enumType = roleType.GetType();
+            var name = Enum.GetName(enumType, roleType);
+            if (name == null)
+                return string.Empty;
+            var descAttr = enumType.GetField(name).GetCustomAttribute<System.ComponentModel.DescriptionAttribute>();
+            return descAttr != null ? descAttr.Description : string.Empty;
+        }
+
     }
 }

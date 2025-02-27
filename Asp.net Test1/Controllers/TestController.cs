@@ -91,7 +91,7 @@ namespace Asp.net_Test1
         /// <param name="isEnable"></param>
         /// <returns></returns>
         [HttpPut("EditUser")]
-        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable)
+        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType)
         {
             var redisClient = new FreeRedis.RedisClient("127.0.0.1:6379");
             bool isContinue = false;
@@ -118,7 +118,7 @@ namespace Asp.net_Test1
                     }
                 }
             }
-            var isSuccess = await _testService.EditUser(id, username, pwd, isEnable);
+            var isSuccess = await _testService.EditUser(id, username, pwd, isEnable, roleType);
             return isSuccess;
         }
     }

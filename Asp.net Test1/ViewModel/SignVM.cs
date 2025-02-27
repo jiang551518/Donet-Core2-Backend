@@ -7,12 +7,34 @@ namespace Asp.net_Test1
 {
     public class SignVM
     {
-        public Guid? Id { get; set; }
-
+        /// <summary>
+        /// 用户名
+        /// </summary>
         public string Username { get; set; }
 
+        /// <summary>
+        /// 真实姓名
+        /// </summary>
+        public string Realname { get; set; }
+
+        /// <summary>
+        /// 登录密码
+        /// </summary>
         public string Pwd { get; set; }
 
-        public bool? IsEnable { get; set; }
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        public bool Enabled { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime Creationtime { get; set; }
+
+        /// <summary>
+        /// 角色类型
+        /// </summary>
+        public RoleType RoleType { get; set; }
     }
 }

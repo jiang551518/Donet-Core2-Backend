@@ -6,17 +6,44 @@ using System.Threading.Tasks;
 
 namespace Asp.net_Test1
 {
+    /// <summary>
+    /// 用户表
+    /// </summary>
     public class User
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public Guid Id { get; set; }
 
-        public string username { get;set; }
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string Username { get;set; }
 
-        public string pwd { get; set; }
+        /// <summary>
+        /// 真实姓名
+        /// </summary>
+        public string Realname { get; set; }
 
-        [JsonProperty("Enable")]
+        /// <summary>
+        /// 登录密码
+        /// </summary>
+        public string Pwd { get; set; }
+
+        /// <summary>
+        /// 是否启用
+        /// </summary>
         public bool Enabled { get; set; }
 
+        /// <summary>
+        /// 创建时间
+        /// </summary>
         public DateTime Creationtime { get; set; }
+
+        /// <summary>
+        /// 角色类型
+        /// </summary>
+        public RoleType RoleType { get; set; }
     }
 }
