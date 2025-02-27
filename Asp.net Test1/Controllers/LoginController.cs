@@ -103,7 +103,7 @@ namespace Asp.net_Test1
             return isSuccess;
         }
 
-        private string GetEnumDescription(RoleType roleType)
+        private string GetEnumDescription(RoleType? roleType)
         {
             if (roleType == null)
             {
