@@ -41,6 +41,13 @@ namespace Asp.net_Test1
             return result;
         }
 
+        public async Task<User> GetDetail(Guid id)
+        {
+            var result = await connection.QueryFirstOrDefaultAsync<User>("SELECT * FROM User WHERE Id = @id AND IsDeleted = false ;", new { id = id });
+            
+            return result;
+        }
+
         public async Task<bool> Sign(User user)
         {
             bool isSuccess = false;
@@ -60,11 +67,32 @@ namespace Asp.net_Test1
             return isSuccess;
         }
 
-        public async Task<bool> EditUser(Guid id, string usermane, string pwd, bool isEnable, RoleType roleType)
+        public async Task<bool> EditUser(Guid id, string usermane, string pwd, bool isEnable, RoleType roleType,User user)
         {
             bool isSuccess = false;
-            var count = await connection.ExecuteAsync("UPDATE User Set username = @username ,pwd = @pwd,Enabled = @isEnable ,RoleType = @roleType WHERE id = @id",
-                new { id = id, username = usermane, pwd = pwd, isEnable = isEnable , roleType = roleType });
+            var LastModificationTime = DateTime.Now;
+            var count = await connection.ExecuteAsync("UPDATE User Set username = @username ,pwd = @pwd,Enabled = @isEnable ,RoleType = @roleType,LastModificationTime = @LastModificationTime ,LastModifierUserId = @LastModifierUserId WHERE id = @id",
+                new { id = id, username = usermane, pwd = pwd, isEnable = isEnable , roleType = roleType , LastModificationTime = LastModificationTime , LastModifierUserId = user.Id });
+            if (count == 1)
+            {
+                isSuccess = true;
+            }
+            return isSuccess;
+        }
+
+        public async Task UpdateLoginNowTime(Guid id)
+        {
+            var LoginNowTime = DateTime.Now;
+            await connection.ExecuteAsync("UPDATE User SET LoginNowTime = @loginNowTime WHERE Id = @Id", new { id = id , loginNowTime = LoginNowTime });
+        }
+
+        public async Task<bool> UpdateIsDelete(Guid id, User user)
+        {
+            bool isSuccess = false;
+            var IsDeleted = true;
+            var DeletedTime = DateTime.Now;
+            var count = await connection.ExecuteAsync("UPDATE User SET IsDeleted = @isDeleted ,DeletedTime = @deletedTime,DeleterUserId = @deleterUserId WHERE Id = @Id",
+                new { id = id, isDeleted = IsDeleted, deletedTime = DeletedTime , deleterUserId = user.Id });
             if (count == 1)
             {
                 isSuccess = true;

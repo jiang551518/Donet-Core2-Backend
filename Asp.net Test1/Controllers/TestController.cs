@@ -89,6 +89,7 @@ namespace Asp.net_Test1
         /// <param name="username"></param>
         /// <param name="pwd"></param>
         /// <param name="isEnable"></param>
+        /// <param name="roleType"></param>
         /// <returns></returns>
         [HttpPut("EditUser")]
         public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType)
@@ -118,8 +119,32 @@ namespace Asp.net_Test1
                     }
                 }
             }
-            var isSuccess = await _testService.EditUser(id, username, pwd, isEnable, roleType);
+            var isSuccess = await _testService.EditUser(id, username, pwd, isEnable, roleType, user);
             return isSuccess;
+        }
+
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("UpdateIsDelete")]
+        public async Task<bool> UpdateIsDelete(Guid id)
+        {
+            var isSuccess = await _testService.UpdateIsDelete(id, user);
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// 获取用户详情(接口204说明没有查到数据)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("GetDetail")]
+        public async Task<User> GetDetail(Guid id)
+        {
+            var userDetail = await _testService.GetDetail(id);
+            return userDetail;
         }
     }
 }

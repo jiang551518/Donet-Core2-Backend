@@ -44,13 +44,24 @@ namespace Asp.net_Test1
         }
 
         /// <summary>
-        /// 查看用户详情
+        /// 通过用户名获取用户详情
         /// </summary>
         /// <param name="usermane"></param>
         /// <returns></returns>
         public async Task<User> GetUserDetail(string usermane)
         {
             var result = await _testRepository.GetUserDetail(usermane);
+            return result;
+        }
+
+        /// <summary>
+        /// 获取用户详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<User> GetDetail(Guid id)
+        {
+            var result = await _testRepository.GetDetail(id);
             return result;
         }
 
@@ -78,11 +89,11 @@ namespace Asp.net_Test1
         /// <param name="pwd"></param>
         /// <param name="isEnable"></param>
         /// <returns></returns>
-        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType)
+        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType,User user)
         {
             var userDetail = await _testRepository.GetUserDetail(username);
             if (userDetail != null) { throw new Exception("用户名已存在"); };
-            var isSuccess = await _testRepository.EditUser(id, username, pwd, isEnable, roleType);
+            var isSuccess = await _testRepository.EditUser(id, username, pwd, isEnable, roleType, user);
             return isSuccess;
         }
 
@@ -105,6 +116,28 @@ namespace Asp.net_Test1
                 result = JsonConvert.DeserializeObject<WeatherApiResponse<WeatherItem>>(ContentText);
             }
             return result;
+        }
+
+        /// <summary>
+        /// 更新登录时间
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task UpdateLoginNowTime(Guid id)
+        {
+            await _testRepository.UpdateLoginNowTime(id);
+        }
+
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateIsDelete(Guid id, User user)
+        {
+            var isSuccess = await _testRepository.UpdateIsDelete(id,user);
+            return isSuccess;
         }
     }
 }

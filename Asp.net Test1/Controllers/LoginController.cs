@@ -41,16 +41,26 @@ namespace Asp.net_Test1
             if (userDetail != null)
             {
                 if (userDetail.Pwd != input.Pwd) { throw new Exception("密码错误!"); };
-                if (userDetail.Enabled == false) { throw new Exception("用户已禁用"); };
+                if (userDetail.Enabled == false) { throw new Exception("用户已禁用!"); };
+                if (userDetail.IsDeleted == true) { throw new Exception("用户已删除!"); };
                 result = new LoginVM() 
                 {
                     Username = userDetail.Username,
                     Id = userDetail.Id ,
                     Enabled = userDetail.Enabled,
                     Creationtime = userDetail.Creationtime,
-                    RoleType = GetEnumDescription(userDetail.RoleType)
-            };
+                    RoleTypeStr = GetEnumDescription(userDetail.RoleType),
+                    RoleType = userDetail.RoleType,
+                    IsDeleted = userDetail.IsDeleted,
+                    DeletedTime = userDetail.DeletedTime.ToString("yyyy-MM-dd"),
+                    DeleterUserId = userDetail.DeleterUserId,
+                    LastModificationTime = userDetail.LastModificationTime.ToString("yyyy-MM-dd"),
+                    LastModifierUserId = userDetail.LastModifierUserId,
+                    LoginNowTime = userDetail.LoginNowTime.ToString("yyyy-MM-dd")
+                };
                 result.JwtToken = await CreateJwtAndSaveCache(result);
+
+                await _testService.UpdateLoginNowTime(userDetail.Id);
             }
             else
             {

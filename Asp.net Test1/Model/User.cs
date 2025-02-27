@@ -45,5 +45,35 @@ namespace Asp.net_Test1
         /// 角色类型
         /// </summary>
         public RoleType RoleType { get; set; }
+
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public bool IsDeleted { get; set; }
+
+        /// <summary>
+        /// 删除时间
+        /// </summary>
+        public DateTime DeletedTime { get; set; }
+
+        /// <summary>
+        /// 最后删除用户id
+        /// </summary>
+        public Guid? DeleterUserId { get; set; }
+
+        /// <summary>
+        /// 最后编辑时间
+        /// </summary>
+        public DateTime LastModificationTime { get; set; }
+
+        /// <summary>
+        /// 最后编辑时间用户id
+        /// </summary>
+        public Guid? LastModifierUserId { get; set; }
+
+        /// <summary>
+        /// 最后登录时间
+        /// </summary>
+        public DateTime LoginNowTime { get; set; }
     }
 }
