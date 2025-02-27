@@ -13,9 +13,7 @@ namespace Asp.net_Test1
     {
         protected ITestRepository _testRepository;
         public const string GetWeatherUrl = "https://saweather.market.alicloudapi.com/area-to-weather";
-        public const string GetSmsUrl = "https://wgkk6r.api.infobip.com/sms/2/text/advanced";
         public const string AppCode = "b58acb361f2a4a5aa5c386a3e9d114df";
-        public const string token = "App 88243c54253684ef21008f5db315f7d9-d786b9c2-3d90-477c-a7b8-ad13019f03c4";
         private static readonly HttpClient client = new HttpClient();
         protected IMapper _mapper { get; set; }
 
