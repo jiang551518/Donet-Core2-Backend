@@ -61,6 +61,9 @@ namespace Asp.net_Test1
         /// <returns></returns>
         public async Task<bool> Sign(User user)
         {
+            var userDetail = await _testRepository.GetUserDetail(user.username);
+            if (userDetail != null) { throw new Exception("用户名已存在"); };
+
             user.Id = Guid.NewGuid();
             user.Creationtime = DateTime.Now;
             var isSuccess = await _testRepository.Sign(user);
@@ -77,6 +80,8 @@ namespace Asp.net_Test1
         /// <returns></returns>
         public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable)
         {
+            var userDetail = await _testRepository.GetUserDetail(username);
+            if (userDetail != null) { throw new Exception("用户名已存在"); };
             var isSuccess = await _testRepository.EditUser(id, username, pwd, isEnable);
             return isSuccess;
         }
