@@ -97,44 +97,6 @@ namespace Asp.net_Test1
             return isSuccess;
         }
 
-        /// <summary>
-        /// 编辑用户
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="username"></param>
-        /// <param name="pwd"></param>
-        /// <param name="isEnable"></param>
-        /// <returns></returns>
-        [HttpPut("EditUser")]
-        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable)
-        {
-            var redisClient = new FreeRedis.RedisClient("127.0.0.1:6379");
-            bool isContinue = false;
-            lock (this)
-            {
-                var cacheValue = redisClient.Get("test_" + username);
-                if (string.IsNullOrWhiteSpace(cacheValue))
-                {
-                    // 如果 Redis 中没有记录，或者记录为空，则可以继续操作
-                    isContinue = true;
-                }
-                else
-                {
-                    var lastExecutionTime = DateTime.Parse(cacheValue);
-                    var currentTime = DateTime.Now;
-
-                    // 计算距离上次执行时间的间隔
-                    var timeSinceLastExecution = currentTime - lastExecutionTime;
-                    // 如果距离上次执行时间超过 7 秒，则可以继续操作 （增加容错）
-                    if (timeSinceLastExecution.TotalSeconds >= 7)
-                    {
-                        isContinue = true;
-                        redisClient.Set("test_" + username.ToString(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                    }
-                }
-            }
-            var isSuccess = await _testService.EditUser(id, username, pwd, isEnable);
-            return isSuccess;
-        }
+        
     }
 }
