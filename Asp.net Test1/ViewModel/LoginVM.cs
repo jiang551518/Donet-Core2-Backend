@@ -81,5 +81,10 @@ namespace Asp.net_Test1
         /// </summary>
         public string LoginNowTime { get; set; }
 
+        /// <summary>
+        /// excel导出加密密码
+        /// </summary>
+        public string ExcelPasswd { get; set; }
+
     }
 }

@@ -42,8 +42,11 @@ namespace Asp.net_Test1
         /// <param name="username"></param>
         /// <param name="pwd"></param>
         /// <param name="isEnable"></param>
+        /// <param name="roleType"></param>
+        /// <param name="user"></param>
+        /// <param name="excelPasswd"></param>
         /// <returns></returns>
-        Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType,User user);
+        Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType,User user,string excelPasswd);
 
         /// <summary>
         /// 天气

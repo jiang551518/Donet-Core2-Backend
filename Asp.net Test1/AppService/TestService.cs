@@ -86,12 +86,15 @@ namespace Asp.net_Test1
         /// <param name="username"></param>
         /// <param name="pwd"></param>
         /// <param name="isEnable"></param>
+        /// <param name="roleType"></param>
+        /// <param name="user"></param>
+        /// <param name="excelPasswd"></param>
         /// <returns></returns>
-        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType,User user)
+        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType,User user,string excelPasswd)
         {
             var userDetail = await _testRepository.GetUserDetail(username);
-            if (userDetail != null) { throw new Exception("用户名已存在"); };
-            var isSuccess = await _testRepository.EditUser(id, username, pwd, isEnable, roleType, user);
+            if (userDetail.Username != username && userDetail != null) { throw new Exception("用户名已存在"); };
+            var isSuccess = await _testRepository.EditUser(id, username, pwd, isEnable, roleType, user, excelPasswd);
             return isSuccess;
         }
 

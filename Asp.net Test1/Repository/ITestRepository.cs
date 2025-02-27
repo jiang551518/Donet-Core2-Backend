@@ -14,7 +14,7 @@ namespace Asp.net_Test1
 
         Task<bool> Sign(User user);
 
-        Task<bool> EditUser(Guid id,string username, string pwd, bool isEnable, RoleType roleType,User user);
+        Task<bool> EditUser(Guid id,string username, string pwd, bool isEnable, RoleType roleType,User user ,string excelPasswd);
 
         Task UpdateLoginNowTime(Guid id);
 

@@ -36,5 +36,10 @@ namespace Asp.net_Test1
         /// 角色类型
         /// </summary>
         public RoleType RoleType { get; set; }
+
+        /// <summary>
+        /// excel导出加密密码
+        /// </summary>
+        public string ExcelPasswd { get; set; }
     }
 }

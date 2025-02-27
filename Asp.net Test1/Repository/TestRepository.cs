@@ -59,7 +59,8 @@ namespace Asp.net_Test1
             param.Add("@Enabled", user.Enabled);
             param.Add("@Creationtime", user.Creationtime);
             param.Add("@RoleType", user.RoleType);
-            var count = await connection.ExecuteAsync("INSERT INTO User VALUES (@Id,@Username,@Realname,@pwd,@Enabled,@Creationtime,@RoleType)", param);
+            param.Add("@ExcelPasswd", user.ExcelPasswd);
+            var count = await connection.ExecuteAsync("INSERT INTO User VALUES (@Id,@Username,@Realname,@pwd,@Enabled,@Creationtime,@RoleType,@ExcelPasswd)", param);
             if (count == 1)
             {
                 isSuccess = true;
@@ -67,12 +68,12 @@ namespace Asp.net_Test1
             return isSuccess;
         }
 
-        public async Task<bool> EditUser(Guid id, string usermane, string pwd, bool isEnable, RoleType roleType,User user)
+        public async Task<bool> EditUser(Guid id, string usermane, string pwd, bool isEnable, RoleType roleType,User user,string excelPasswd)
         {
             bool isSuccess = false;
             var LastModificationTime = DateTime.Now;
-            var count = await connection.ExecuteAsync("UPDATE User Set username = @username ,pwd = @pwd,Enabled = @isEnable ,RoleType = @roleType,LastModificationTime = @LastModificationTime ,LastModifierUserId = @LastModifierUserId WHERE id = @id",
-                new { id = id, username = usermane, pwd = pwd, isEnable = isEnable , roleType = roleType , LastModificationTime = LastModificationTime , LastModifierUserId = user.Id });
+            var count = await connection.ExecuteAsync("UPDATE User Set username = @username ,pwd = @pwd,Enabled = @isEnable ,RoleType = @roleType,LastModificationTime = @LastModificationTime ,LastModifierUserId = @LastModifierUserId ,ExcelPasswd = @excelPasswd WHERE id = @id",
+                new { id = id, username = usermane, pwd = pwd, isEnable = isEnable , roleType = roleType , LastModificationTime = LastModificationTime , LastModifierUserId = user.Id , excelPasswd = excelPasswd});
             if (count == 1)
             {
                 isSuccess = true;

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using MiniExcelLibs;
+using OfficeOpenXml;
 using System;
 using System.IO;
 using System.Linq;
@@ -32,20 +33,35 @@ namespace Asp.net_Test1
         }
 
         /// <summary>
-        /// 测试列表导出
+        /// 测试列表导出（导出加密）
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetListExport")]
         public async Task<IActionResult> GetListExport()
         {
+            // 设置 EPPlus 许可上下文
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;  
+
             var exportData = await _testService.GetListExport();
+
             var memoryStream = new MemoryStream();
             memoryStream.SaveAs(exportData);
-            memoryStream.Seek(0, SeekOrigin.Begin);
-            HttpContext.Response.Headers.Clear();
-            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
-            HttpContext.Response.Headers.Add("Content-Disposition", $"attachment;filename={DateTime.Now.ToString("yyyyMMddhhmmss")}.xlsx");
-            return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+            using (var package = new ExcelPackage(memoryStream))
+            {
+                var encryption = package.Encryption;
+                encryption.Password = user.ExcelPasswd;  
+
+                var encryptedMemoryStream = new MemoryStream();
+                package.SaveAs(encryptedMemoryStream);
+
+                encryptedMemoryStream.Seek(0, SeekOrigin.Begin);
+
+                HttpContext.Response.Headers.Clear();
+                HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+                HttpContext.Response.Headers.Add("Content-Disposition", $"attachment;filename={DateTime.Now.ToString("yyyyMMddhhmmss")}.xlsx");
+                return File(encryptedMemoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }
         }
 
         /// <summary>
@@ -90,9 +106,10 @@ namespace Asp.net_Test1
         /// <param name="pwd"></param>
         /// <param name="isEnable"></param>
         /// <param name="roleType"></param>
+        /// <param name="excelPasswd"></param>
         /// <returns></returns>
         [HttpPut("EditUser")]
-        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType)
+        public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType,string excelPasswd)
         {
             var redisClient = new FreeRedis.RedisClient("127.0.0.1:6379");
             bool isContinue = false;
@@ -119,7 +136,7 @@ namespace Asp.net_Test1
                     }
                 }
             }
-            var isSuccess = await _testService.EditUser(id, username, pwd, isEnable, roleType, user);
+            var isSuccess = await _testService.EditUser(id, username, pwd, isEnable, roleType, user, excelPasswd);
             return isSuccess;
         }
 

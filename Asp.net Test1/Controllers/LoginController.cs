@@ -56,7 +56,8 @@ namespace Asp.net_Test1
                     DeleterUserId = userDetail.DeleterUserId,
                     LastModificationTime = userDetail.LastModificationTime.ToString("yyyy-MM-dd"),
                     LastModifierUserId = userDetail.LastModifierUserId,
-                    LoginNowTime = userDetail.LoginNowTime.ToString("yyyy-MM-dd")
+                    LoginNowTime = userDetail.LoginNowTime.ToString("yyyy-MM-dd"),
+                    ExcelPasswd = userDetail.ExcelPasswd
                 };
                 result.JwtToken = await CreateJwtAndSaveCache(result);
 
@@ -112,6 +113,7 @@ namespace Asp.net_Test1
             var isSuccess = await _testService.Sign(input);
             return isSuccess;
         }
+
 
         private string GetEnumDescription(RoleType? roleType)
         {
