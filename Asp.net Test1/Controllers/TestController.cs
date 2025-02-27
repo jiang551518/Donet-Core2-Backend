@@ -83,17 +83,6 @@ namespace Asp.net_Test1
         }
 
         /// <summary>
-        /// 发送短信（但api服务商试用不了）
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost("Post")]
-        public async Task<SmsVM> Post()
-        {
-            var result = await _testService.Post();
-            return result;
-        }
-
-        /// <summary>
         /// 编辑用户
         /// </summary>
         /// <param name="id"></param>

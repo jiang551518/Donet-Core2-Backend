@@ -44,7 +44,5 @@ namespace Asp.net_Test1
         /// <param name="city"></param>
         /// <returns></returns>
         Task<WeatherApiResponse<WeatherItem>> GetWeather(string city);
-
-        Task<SmsVM> Post();
     }
 }

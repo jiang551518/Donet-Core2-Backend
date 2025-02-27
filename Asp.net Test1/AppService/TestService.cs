@@ -106,35 +106,5 @@ namespace Asp.net_Test1
             }
             return result;
         }
-
-        public async Task<SmsVM> Post()
-        {
-            var result = new SmsVM();
-
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Authorization", token);
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-
-            var body = @"{
-            ""messages"":[
-                {
-                    ""destinations"":[{""to"":""447311009093""}],
-                    ""from"":""447491163443"",
-                    ""text"":""Congratulations on sending your first message. Go ahead and check the delivery report in the next step.""
-                }
-            ]
-        }";
-
-            var content = new StringContent(body, Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(GetSmsUrl, content);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var ContentText = await response.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<SmsVM>(ContentText);
-            }
-            return result;
-        }
     }
 }
