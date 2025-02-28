@@ -46,16 +46,12 @@ namespace Asp.net_Test1
                 result = new LoginVM() 
                 {
                     Username = userDetail.Username,
+                    Realname = userDetail.Realname,
                     Id = userDetail.Id ,
                     Enabled = userDetail.Enabled,
                     Creationtime = userDetail.Creationtime,
                     RoleTypeStr = GetEnumDescription(userDetail.RoleType),
                     RoleType = userDetail.RoleType,
-                    IsDeleted = userDetail.IsDeleted,
-                    DeletedTime = userDetail.DeletedTime.ToString("yyyy-MM-dd"),
-                    DeleterUserId = userDetail.DeleterUserId,
-                    LastModificationTime = userDetail.LastModificationTime.ToString("yyyy-MM-dd"),
-                    LastModifierUserId = userDetail.LastModifierUserId,
                     LoginNowTime = userDetail.LoginNowTime.ToString("yyyy-MM-dd"),
                     ExcelPasswd = userDetail.ExcelPasswd
                 };
