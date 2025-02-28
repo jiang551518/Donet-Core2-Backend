@@ -2,4 +2,5 @@ asp .net core 测试项目，包含了jwt token登录鉴权，redis缓存，mysq
 ![82e215289f883c4958bd214882feaca](https://github.com/user-attachments/assets/fca44370-4ce6-4efe-91c4-42a5520279f6)
 ![5d7bf796b3bfa028aa21a598c3ee511](https://github.com/user-attachments/assets/6faa46b1-5285-4c7a-9032-ed21be37037b)
 ![image](https://github.com/user-attachments/assets/40ffd48d-e58f-4b1e-b872-79377cc87f65)
+![1740737923665](https://github.com/user-attachments/assets/fbfe0aca-8db7-4c1d-8f4b-1db4775cd97b)
 
