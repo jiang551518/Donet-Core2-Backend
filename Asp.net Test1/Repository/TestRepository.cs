@@ -8,17 +8,10 @@ using System.Threading.Tasks;
 
 namespace Asp.net_Test1
 {
-    public class TestRepository : ITestRepository
+    public class TestRepository : MysqlConn, ITestRepository
     {
-        private string conn;
-        private MySqlConnection connection;
-        public IConfiguration _configuration { get; set; }
-
-        public TestRepository(IConfiguration configuration)
+        public TestRepository(IConfiguration configuration) : base(configuration)
         {
-            _configuration = configuration;
-            conn = _configuration["MysqlConnection"];
-            connection = new MySqlConnection(conn);
         }
 
 
