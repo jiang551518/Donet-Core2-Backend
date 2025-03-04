@@ -28,11 +28,6 @@ namespace Asp.net_Test1
         public bool Enabled { get; set; }
 
         /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime Creationtime { get; set; }
-
-        /// <summary>
         /// 角色类型
         /// </summary>
         public RoleType RoleType { get; set; }
