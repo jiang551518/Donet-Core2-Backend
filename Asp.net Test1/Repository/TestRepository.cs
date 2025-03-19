@@ -84,8 +84,7 @@ namespace Asp.net_Test1
                 param.Add("@enabled", enabled);
 
             }
-            var sqlStr = sql.ToString();
-            var result = await connection.QueryAsync<User>(sqlStr, param);
+            var result = await connection.QueryAsync<User>(sql.ToString(), param);
             return result.ToList();
         }
 
