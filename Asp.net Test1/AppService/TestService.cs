@@ -64,6 +64,18 @@ namespace Asp.net_Test1
         }
 
         /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="enabled"></param>
+        /// <returns></returns>
+        public async Task<List<User>> GetUserList(string username, bool? enabled)
+        {
+            var result = await _testRepository.GetUserList(username,enabled);
+            return result;
+        }
+
+        /// <summary>
         /// 注册用户
         /// </summary>
         /// <param name="user"></param>

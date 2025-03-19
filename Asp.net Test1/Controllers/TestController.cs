@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using MiniExcelLibs;
 using OfficeOpenXml;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -96,6 +97,19 @@ namespace Asp.net_Test1
             }
             else
                 return null;
+        }
+
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="enabled"></param>
+        /// <returns></returns>
+        [HttpGet("GetUserList")]
+        public async Task<List<User>> GetUserList(string username, bool? enabled)
+        {
+            var result = await _testService.GetUserList(username,enabled);
+            return result;
         }
 
         /// <summary>

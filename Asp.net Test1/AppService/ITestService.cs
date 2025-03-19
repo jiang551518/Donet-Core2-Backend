@@ -29,6 +29,14 @@ namespace Asp.net_Test1
         Task<User> GetDetail(Guid id);
 
         /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="enabled"></param>
+        /// <returns></returns>
+        Task<List<User>> GetUserList(string username, bool? enabled);
+
+        /// <summary>
         /// 注册
         /// </summary>
         /// <param name="user"></param>

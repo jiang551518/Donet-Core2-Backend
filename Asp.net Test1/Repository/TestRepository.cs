@@ -2,8 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Asp.net_Test1
@@ -59,6 +61,32 @@ namespace Asp.net_Test1
                 isSuccess = true;
             }
             return isSuccess;
+        }
+
+        /// <summary>
+        /// 查询用户列表
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="enabled"></param>
+        /// <returns></returns>
+        public async Task<List<User>> GetUserList(string username, bool? enabled)
+        {
+            StringBuilder sql = new StringBuilder("SELECT * FROM User WHERE IsDeleted = false ");
+            DynamicParameters param = new DynamicParameters();
+            if (!string.IsNullOrWhiteSpace(username))
+            {
+                sql.Append(" AND Username = @usernam");
+                param.Add("@username",username);
+            }
+            if (enabled != null)
+            {
+                sql.Append(" AND Enabled = @enabled");
+                param.Add("@enabled", enabled);
+
+            }
+            var sqlStr = sql.ToString();
+            var result = await connection.QueryAsync<User>(sqlStr, param);
+            return result.ToList();
         }
 
         public async Task<bool> EditUser(Guid id, string usermane, string pwd, bool isEnable, RoleType roleType,User user,string excelPasswd)
