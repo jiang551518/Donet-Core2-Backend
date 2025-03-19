@@ -75,7 +75,7 @@ namespace Asp.net_Test1
             DynamicParameters param = new DynamicParameters();
             if (!string.IsNullOrWhiteSpace(username))
             {
-                sql.Append(" AND Username = @usernam");
+                sql.Append(" AND Username = @username");
                 param.Add("@username",username);
             }
             if (enabled != null)
