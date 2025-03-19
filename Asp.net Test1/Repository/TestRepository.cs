@@ -55,7 +55,7 @@ namespace Asp.net_Test1
             param.Add("@Creationtime", user.Creationtime);
             param.Add("@RoleType", user.RoleType);
             param.Add("@ExcelPasswd", user.ExcelPasswd);
-            var count = await connection.ExecuteAsync("INSERT INTO User VALUES (@Id,@Username,@Realname,@pwd,@Enabled,@Creationtime,@RoleType,@ExcelPasswd)", param);
+            var count = await connection.ExecuteAsync("INSERT INTO User (id, username, realname, pwd, enabled, creationtime, roletype, isdeleted,  excelpasswd) VALUES (@Id,@Username,@Realname,@pwd,@Enabled,@Creationtime,@RoleType,0,@ExcelPasswd)", param);
             if (count == 1)
             {
                 isSuccess = true;
