@@ -84,6 +84,7 @@ namespace Asp.net_Test1
                 param.Add("@enabled", enabled);
 
             }
+            sql.Append(" ORDER BY creationtime Desc ");
             var result = await connection.QueryAsync<User>(sql.ToString(), param);
             return result.ToList();
         }
