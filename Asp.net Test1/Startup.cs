@@ -92,7 +92,6 @@ namespace Asp.net_Test1
                 });
             }
 
-
             app.UseHangfireDashboard("/hangfire", new DashboardOptions()
             {
                 Authorization = new[] { new CustomAuthorizeFilter() }
@@ -101,12 +100,17 @@ namespace Asp.net_Test1
             var localTime = TZConvert.GetTimeZoneInfo("Asia/Shanghai");
             RecurringJob.AddOrUpdate<ITestService>(x => x.GetList(), "*/2 * * * * ", localTime);
 
+            // 获取允许的源地址列表
+            var allowedOrigins = Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
             app.UseCors(builder =>
             {
-                builder.AllowAnyOrigin(); //允许任何源访问
-                builder.AllowAnyHeader(); //允许任何请求头
-                builder.AllowAnyHeader(); //允许任何HTTP方法
-                builder.AllowCredentials(); //允许发送凭证（如cookies）
+                builder.WithOrigins(allowedOrigins)
+                       .AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .AllowCredentials();
+
+                builder.WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
             });
 
             app.UseAuthentication();
