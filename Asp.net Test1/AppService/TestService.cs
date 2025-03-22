@@ -104,8 +104,8 @@ namespace Asp.net_Test1
         /// <returns></returns>
         public async Task<bool> EditUser(Guid id, string username, string pwd, bool isEnable, RoleType roleType,User user,string excelPasswd)
         {
-            var userDetail = await _testRepository.GetUserDetail(username);
-            if (userDetail.Username != username && userDetail != null) { throw new Exception("用户名已存在"); };
+            var userDetail = await _testRepository.GetDetail(id);
+            if (userDetail.Username == username && userDetail != null) { throw new Exception("用户名已存在"); };
             var isSuccess = await _testRepository.EditUser(id, username, pwd, isEnable, roleType, user, excelPasswd);
             return isSuccess;
         }
