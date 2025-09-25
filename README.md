@@ -19,6 +19,12 @@
 - Redis 5.0+  
 - Windows 或 Linux  
 
+## 配置说明
+根据自己需要在 `appsettings.json` 中配置以下字段：
+- `HangfireConfig`
+- `MysqlConnection`
+- `AllowedOrigins`
+
 ## 图片截图
 ![82e215289f883c4958bd214882feaca](https://github.com/user-attachments/assets/fca44370-4ce6-4efe-91c4-42a5520279f6)
 ![5d7bf796b3bfa028aa21a598c3ee511](https://github.com/user-attachments/assets/6faa46b1-5285-4c7a-9032-ed21be37037b)
