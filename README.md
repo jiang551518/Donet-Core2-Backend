@@ -1,4 +1,4 @@
-# ASP.NET Core 练习项目
+# ASP.NET Core 后端demo项目
 
 一个基于 .NET Core 2.0 的示例项目，实现了 JWT 登录鉴权、Redis 缓存、MySQL CRUD、Excel 导出加密、天气接口、Hangfire 定时任务等功能，并集成 Swagger 方便查看文档，通过 Postman 测试接口。
 
