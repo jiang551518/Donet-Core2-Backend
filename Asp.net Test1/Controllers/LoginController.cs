@@ -37,8 +37,6 @@ namespace Asp.net_Test1
         [HttpPost("Login")]
         public async Task<LoginVM> Login([FromBody] LoginInputVM input)
         {
-            var RoleTypeStr = GetEnumDescription<RoleType>(RoleType.Worker);
-
             var result = new LoginVM();
             var userDetail = await _testService.GetUserDetail(input.Username);
             if (userDetail != null)
