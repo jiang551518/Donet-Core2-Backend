@@ -1,10 +1,11 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
@@ -36,6 +37,8 @@ namespace Asp.net_Test1
         [HttpPost("Login")]
         public async Task<LoginVM> Login([FromBody] LoginInputVM input)
         {
+            var RoleTypeStr = GetEnumDescription<RoleType>(RoleType.Worker);
+
             var result = new LoginVM();
             var userDetail = await _testService.GetUserDetail(input.Username);
             if (userDetail != null)
@@ -50,7 +53,7 @@ namespace Asp.net_Test1
                     Id = userDetail.Id ,
                     Enabled = userDetail.Enabled,
                     Creationtime = userDetail.Creationtime,
-                    RoleTypeStr = GetEnumDescription(userDetail.RoleType),
+                    RoleTypeStr = GetEnumDescription<RoleType>(userDetail.RoleType),
                     RoleType = userDetail.RoleType,
                     LoginNowTime = userDetail.LoginNowTime.ToString("yyyy-MM-dd"),
                     ExcelPasswd = userDetail.ExcelPasswd
@@ -111,18 +114,33 @@ namespace Asp.net_Test1
         }
 
 
-        private string GetEnumDescription(RoleType? roleType)
+        private string GetEnumDescription<T>(T? enumValue) where T : struct, Enum
         {
-            if (roleType == null)
+            // 处理空值情况
+            if (!enumValue.HasValue)
             {
                 return string.Empty;
             }
-            Type enumType = roleType.GetType();
-            var name = Enum.GetName(enumType, roleType);
-            if (name == null)
+
+            // 获取枚举类型
+            Type enumType = typeof(T);
+
+            // 获取枚举成员名称
+            string enumName = Enum.GetName(enumType, enumValue.Value);
+            if (enumName == null)
+            {
                 return string.Empty;
-            var descAttr = enumType.GetField(name).GetCustomAttribute<System.ComponentModel.DescriptionAttribute>();
-            return descAttr != null ? descAttr.Description : string.Empty;
+            }
+
+            // 获取Description特性
+            FieldInfo fieldInfo = enumType.GetField(enumName);
+            if (fieldInfo == null)
+            {
+                return string.Empty;
+            }
+
+            DescriptionAttribute descAttr = fieldInfo.GetCustomAttribute<DescriptionAttribute>();
+            return descAttr?.Description ?? string.Empty;
         }
 
     }
