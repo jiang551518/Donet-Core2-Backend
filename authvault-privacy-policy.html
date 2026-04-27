@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AuthVault Privacy Policy / 隐私权政策</title>
+  <meta name="description" content="Privacy Policy for AuthVault, an OTP authenticator app with optional camera scanning for QR code import." />
+  <style>
+    :root {
+      --bg: #f7f7f8;
+      --card: #ffffff;
+      --text: #18181b;
+      --muted: #5f6368;
+      --line: #e5e7eb;
+      --accent: #0f766e;
+      --accent-soft: #ecfdf5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(180deg, #f8fafc 0%, #f7f7f8 100%);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+    .hero {
+      margin-bottom: 24px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.15;
+      margin: 0 0 12px;
+    }
+    .sub {
+      color: var(--muted);
+      margin: 0;
+      font-size: 16px;
+    }
+    .meta {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+    }
+    h2 {
+      font-size: 24px;
+      margin: 0 0 16px;
+    }
+    h3 {
+      font-size: 18px;
+      margin: 28px 0 10px;
+    }
+    p, li { font-size: 16px; }
+    ul { padding-left: 20px; }
+    .note {
+      margin-top: 22px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #fafafa;
+      border: 1px dashed #d4d4d8;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .en {
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+    .footer {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge">AuthVault · Privacy Policy</div>
+      <h1>AuthVault 隐私权政策</h1>
+      <p class="sub">适用于 OTP / 2FA 身份验证工具应用，包含二维码扫码导入功能。</p>
+      <div class="meta">
+        生效日期：2026-04-27<br />
+        最后更新日期：2026-04-27
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>中文</h2>
+      <p>欢迎使用 <strong>AuthVault</strong>（以下简称“本应用”）。本隐私权政策说明我们如何收集、使用、存储和保护与本应用有关的信息。</p>
+
+      <h3>1. 我们收集的信息</h3>
+      <p>本应用原则上仅处理实现核心功能所必需的信息。</p>
+      <ul>
+        <li><strong>相机权限</strong>：本应用会请求相机权限，用于扫描 OTP / 2FA 二维码并快速导入身份验证信息。相机仅会在您主动使用“扫码添加”功能时启用。</li>
+        <li><strong>您主动输入的信息</strong>：当您手动添加身份验证条目时，您可能会输入账户名称、服务名称、OTP 密钥、备注等信息。</li>
+        <li><strong>本地存储信息</strong>：为实现身份验证功能，本应用可能会将您添加的 OTP 条目、设置项及相关配置保存在您的设备本地。</li>
+      </ul>
+
+      <h3>2. 我们如何使用信息</h3>
+      <ul>
+        <li>生成和显示一次性验证码（OTP）。</li>
+        <li>保存您添加的身份验证条目。</li>
+        <li>支持通过相机扫码导入 OTP 配置。</li>
+        <li>提升应用的基本功能、稳定性与安全性。</li>
+      </ul>
+
+      <h3>3. 信息是否上传到服务器</h3>
+      <p>默认情况下，本应用不会将您扫描的二维码内容、OTP 密钥或验证码上传到开发者服务器。</p>
+      <p>如果未来版本引入云同步、账号登录、远程备份、崩溃分析或使用统计等功能，我们会在更新后的隐私权政策中明确说明。</p>
+
+      <h3>4. 信息共享</h3>
+      <p>我们不会向第三方出售您的个人信息。除以下情况外，我们不会与第三方共享您的信息：</p>
+      <ul>
+        <li>已获得您的明确同意；</li>
+        <li>为履行法律法规要求；</li>
+        <li>为保护应用、安全或用户的合法权益。</li>
+      </ul>
+
+      <h3>5. 权限说明</h3>
+      <p>本应用当前可能请求以下权限：</p>
+      <ul>
+        <li><code>android.permission.CAMERA</code>：用于扫描二维码导入 OTP / 2FA 配置。</li>
+      </ul>
+      <p>如果您拒绝授予相机权限，您仍可在应用支持的情况下通过手动输入方式添加身份验证信息。</p>
+
+      <h3>6. 数据存储与安全</h3>
+      <p>我们会尽合理努力保护您保存在设备中的信息安全。但请理解，任何电子存储或传输方式都无法保证绝对安全。建议您妥善保护设备、系统锁屏、备份文件及相关敏感信息。</p>
+
+      <h3>7. 您的选择与控制</h3>
+      <ul>
+        <li>您可以随时在系统设置中关闭相机权限。</li>
+        <li>您可以在应用内删除身份验证条目。</li>
+        <li>您可以通过卸载本应用移除本地存储的数据（如无其他备份）。</li>
+      </ul>
+
+      <h3>8. 儿童隐私</h3>
+      <p>本应用不面向 13 岁以下儿童，也不会故意收集 13 岁以下儿童的个人信息。</p>
+
+      <h3>9. 隐私政策更新</h3>
+      <p>我们可能会根据功能变化、法律要求或产品更新修改本隐私权政策。如有重大变化，我们将通过应用内提示、版本说明或其他适当方式通知您。</p>
+
+      <h3>10. 联系我们</h3>
+      <p>如果您对本隐私权政策有任何疑问，可通过以下方式联系我们：</p>
+      <ul>
+        <li>开发者名称：<strong>[请替换为你的名字或品牌名]</strong></li>
+        <li>联系邮箱：<strong>[请替换为你的联系邮箱]</strong></li>
+        <li>网站：<strong>[可选，若无可删除]</strong></li>
+      </ul>
+
+      <div class="note">
+        发布前请至少替换第 10 节中的开发者名称和联系邮箱；如果你的应用已经接入云同步、Firebase、崩溃分析、广告或统计 SDK，请同步补充第 3、4、6 节内容，确保与 Google Play 的 Data safety 表单保持一致。
+      </div>
+
+      <section class="en">
+        <h2>English</h2>
+        <p>Welcome to <strong>AuthVault</strong> (the “App”). This Privacy Policy explains how we collect, use, store, and protect information related to the App.</p>
+
+        <h3>1. Information We Collect</h3>
+        <p>The App is designed to process only the information necessary to provide its core functionality.</p>
+        <ul>
+          <li><strong>Camera permission</strong>: The App requests camera access to scan OTP / 2FA QR codes and quickly import authentication details. The camera is used only when you actively choose the scan feature.</li>
+          <li><strong>Information you provide</strong>: When you manually add an entry, you may provide account name, service name, OTP secret, notes, or similar information.</li>
+          <li><strong>Locally stored information</strong>: To provide authentication features, the App may store OTP entries, settings, and related configuration data locally on your device.</li>
+        </ul>
+
+        <h3>2. How We Use Information</h3>
+        <ul>
+          <li>To generate and display one-time passwords (OTP).</li>
+          <li>To save authentication entries you add.</li>
+          <li>To support QR code scanning for OTP configuration import.</li>
+          <li>To improve the App’s basic functionality, stability, and security.</li>
+        </ul>
+
+        <h3>3. Server Uploads</h3>
+        <p>By default, the App does not upload scanned QR code content, OTP secrets, or generated codes to the developer’s server.</p>
+        <p>If a future version introduces cloud sync, account login, remote backup, crash analytics, or usage analytics, this Privacy Policy will be updated accordingly.</p>
+
+        <h3>4. Information Sharing</h3>
+        <p>We do not sell your personal information. We do not share your information with third parties except in the following situations:</p>
+        <ul>
+          <li>With your explicit consent;</li>
+          <li>To comply with legal obligations;</li>
+          <li>To protect the legitimate rights, safety, or security of the App or its users.</li>
+        </ul>
+
+        <h3>5. Permission Disclosure</h3>
+        <ul>
+          <li><code>android.permission.CAMERA</code>: used to scan QR codes for importing OTP / 2FA configuration.</li>
+        </ul>
+        <p>If you deny camera permission, you may still be able to add authentication information manually if that feature is available in the App.</p>
+
+        <h3>6. Data Storage and Security</h3>
+        <p>We take reasonable steps to protect information stored on your device. However, no method of electronic storage or transmission is completely secure. You are encouraged to protect your device, screen lock, backup files, and other sensitive information.</p>
+
+        <h3>7. Your Choices</h3>
+        <ul>
+          <li>You can disable camera access in your device settings at any time.</li>
+          <li>You can delete authentication entries within the App.</li>
+          <li>You can uninstall the App to remove locally stored data, unless you have created backups elsewhere.</li>
+        </ul>
+
+        <h3>8. Children’s Privacy</h3>
+        <p>The App is not directed to children under 13, and we do not knowingly collect personal information from children under 13.</p>
+
+        <h3>9. Changes to This Policy</h3>
+        <p>We may update this Privacy Policy from time to time to reflect product changes, legal requirements, or service updates. Material changes may be communicated through the App, release notes, or other appropriate means.</p>
+
+        <h3>10. Contact</h3>
+        <ul>
+          <li>Developer name: <strong>[Replace with your name or brand]</strong></li>
+          <li>Email: <strong>[Replace with your contact email]</strong></li>
+          <li>Website: <strong>[Optional]</strong></li>
+        </ul>
+      </section>
+
+      <div class="footer">This page is intended to be published as a public privacy policy URL for Google Play listing and in-app reference.</div>
+    </section>
+  </main>
+</body>
+</html>
